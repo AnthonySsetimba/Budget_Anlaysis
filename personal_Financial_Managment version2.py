@@ -4,19 +4,26 @@
 #  and provide essential feedback to the user regarding their fiscal status. 
 # The final output will be a comprehensive summary of the user's financial activity.
 
-def get_positive_price(firstPrice):
-    #get a non-negative digit from user
-    while True:
-        try:
-            value = float(input(firstPrice))
-            if value < 0:
-                print("Please enter a non-negative number.")
-            else:
-                return value
-        except ValueError:
-            print("Please enter a valid number ")
 
 
+
+
+class prices:
+    def get_positive_price(firstPrice):
+        #get a non-negative digit from user
+        while True:
+            try:
+                value = float(input(firstPrice))
+                if value < 0:
+                    print("Please enter a non-negative number.")
+                else:
+                    return value
+            except ValueError:
+                print("Please enter a valid number ")
+
+
+def main():
+    price = prices(firstprice)
 print("Enter your details for your weekly Budget:")
 
 # Get user's name
