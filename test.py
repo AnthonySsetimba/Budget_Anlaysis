@@ -121,7 +121,7 @@ def get_positive_price(prompt):
             print(" Please enter a valid number")
 
 
-def main():
+def main(4):
     print(" PERSONAL BUDGET TRACKER")
     print("=" * 40)
     
@@ -153,7 +153,7 @@ def main():
     my_budget.display_expense_summary()
     
     # Example of controlled access through getters
-    print("\nBudget tracking complete!")
+    print("\n✅ Budget tracking complete!")
     print(f"Thank you {my_budget.get_user_name()} for using the Budget Tracker!")
 
 
