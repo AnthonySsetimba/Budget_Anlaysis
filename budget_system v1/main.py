@@ -2,9 +2,9 @@ from user import User
 from budget import Budget
 from expense import Expense
 
-# -------------------------------------------------------
-# INPUT HELPER FUNCTIONS
-# -------------------------------------------------------
+
+# INPUT FUNCTIONS
+
 
 def get_positive_number(prompt):
     """Keeps asking until the user enters a valid non-negative number."""
@@ -33,13 +33,12 @@ def get_positive_int(prompt):
             print("Please enter a valid whole number.")
 
 
-# -------------------------------------------------------
 # MAIN PROGRAM
-# -------------------------------------------------------
+
 
 def main():
 
-    # --- Collect basic user and budget information ---
+    #Collect basic user and budget information 
     print("Enter your details for your weekly budget:")
     name = input("Enter your name: ")
     budget_name = input("Budget name: ")
@@ -63,28 +62,36 @@ def main():
 
     print(f"\n--- Enter {budget_name} Expenses ---")
 
-    # --- Expense entry loop ---
+    # Expense entry loop 
     # Runs once for each expense the user wants to record
     for i in range(1, num_expenses + 1):
 
-        # Show which expense number we are on and the current balance
         print(f"\nExpense {i} of {num_expenses}")
         print(f"Current balance: UGX {budget.balance:.2f}")
 
-        # Get the name and cost of the expense
-        expense_name = input("Expense name: ")
-        amount = get_positive_number("Expense amount: UGX ")
+        # Keep asking until a valid expense is accepted
+        while True:
+            expense_name = input("Expense name: ")
+            amount = get_positive_number("Expense amount: UGX ")
 
-        # Add the expense to the budget
-        # This also deducts the amount from the running balance
-        # and warns the user if the expense exceeds their balance
-        budget.add_expense(Expense(expense_name, amount))
+            # Attempt to add the expense — may be rejected if it exceeds balance
+            result = budget.add_expense(Expense(expense_name, amount))
 
-        # Confirm the expense was added and show the updated balance
-        print(f"✓ '{expense_name}' added.")
-        print(f"Remaining balance: UGX {budget.balance:.2f}")
+            # None means the expense was rejected, ask the user to try again
+            if result is None:
+                print("Please try again.")
+                continue
 
-    # --- Display the full expense summary at the end ---
+            # Expense was accepted, confirm and show updated balance
+            print(f"✓ '{expense_name}' added.")
+            print(f"Remaining balance: UGX {budget.balance:.2f}")
+            break
+
+        # True means budget is fully exhausted, stop accepting more expenses
+        if result is True:
+            break
+
+    #  Display the full expense summary at the end 
     # Shows all items, total spent, and final remaining balance
     budget.display_summary()
 

@@ -1,10 +1,10 @@
 from expense import Expense
 
-# -------------------------------------------------------
+
 # BUDGET CLASS
 # Handles all financial logic — tracks the running balance,
 # stores expenses, and displays the final summary
-# -------------------------------------------------------
+
 
 class Budget:
 
@@ -19,19 +19,31 @@ class Budget:
 
     def add_expense(self, expense: Expense):
         """
-        Adds an expense to the budget.
-        Warns the user if the expense exceeds the current balance,
-        then deducts the amount from the running balance regardless.
+        Attempts to add an expense to the budget.
+        Rejects the expense entirely if it would exceed the current balance.
+        Returns True if the budget is now exactly zero (exhausted),
+        False if there is still remaining balance.
+        Returns None if the expense was rejected.
         """
-        # Warn the user but still allow the transaction
+        # Block the expense if it exceeds the available balance
         if expense.amount > self.balance:
-            print("Warning: This expense exceeds your current balance!")
+            print(f"\nExpense rejected. UGX {expense.amount:.2f} exceeds "
+                  f"your remaining balance of UGX {self.balance:.2f}.")
+            print("Please enter a smaller amount.")
+            return None  # Signals to main.py that the expense was not added
 
         # Add the expense object to the list for later display in the summary
         self.expenses.append(expense)
 
         # Deduct the expense amount from the current balance
         self.balance -= expense.amount
+
+        # Signal that the budget is now fully exhausted
+        if self.balance == 0:
+            print("\nYour budget is now fully used up.")
+            return True  # Tells main.py to stop the loop
+
+        return False  # Budget still has funds, loop can continue
 
     def display_summary(self):
         """
@@ -54,6 +66,6 @@ class Budget:
 
         # Footer totals
         print(f"{'Initial amount:':<20} {self.initial_amount:>10.2f}")
-        print(f"{'Total spent:':<20} {self.initial_amount - self.balance:>10.2f}")  # Calculated on the fly
+        print(f"{'Total spent:':<20} {self.initial_amount - self.balance:>10.2f}")
         print(f"{'Remaining balance:':<20} {self.balance:>10.2f}")
         print("*****")
