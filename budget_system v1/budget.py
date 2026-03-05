@@ -13,9 +13,9 @@ class Budget:
         self.balance -= expense.amount
 
     def display_summary(self):
-        print("\n=============================")
-        print("       EXPENSE SUMMARY       ")
-        print("=============================")
+        print("\n*****")
+        print("   EXPENSE SUMMARY    ")
+        print("******")
         print(f"{'Item':<20} {'Cost (UGX)':>10}")
         print("-" * 32)
         for e in self.expenses:
@@ -24,4 +24,4 @@ class Budget:
         print(f"{'Initial amount:':<20} {self.initial_amount:>10.2f}")
         print(f"{'Total spent:':<20} {self.initial_amount - self.balance:>10.2f}")
         print(f"{'Remaining balance:':<20} {self.balance:>10.2f}")
-        print("=============================")
+        print("*****")

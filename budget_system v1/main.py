@@ -41,10 +41,13 @@ def main():
     print(f"\n--- Enter {budget_name} Expenses ---")
 
     for i in range(1, num_expenses + 1):
-        print(f"\nExpense {i} | Current balance: UGX {budget.balance:.2f}")
+        print(f"\nExpense {i} of {num_expenses}")
+        print(f"Current balance: UGX {budget.balance:.2f}")
         expense_name = input("Expense name: ")
         amount = get_positive_number("Expense amount: UGX ")
         budget.add_expense(Expense(expense_name, amount))
+        print(f"✓ '{expense_name}' added.")
+        print(f"Remaining balance: UGX {budget.balance:.2f}")
 
     budget.display_summary()
 
