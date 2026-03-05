@@ -13,6 +13,17 @@ def get_positive_number(prompt):
         except ValueError:
             print("Please enter a valid number.")
 
+def get_positive_int(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            if value <= 0:
+                print("Please enter a positive whole number.")
+            else:
+                return value
+        except ValueError:
+            print("Please enter a valid whole number.")
+
 def main():
     print("Enter your details for your weekly budget:")
     name = input("Enter your name: ")
@@ -24,9 +35,12 @@ def main():
 
     user.display()
     print(f"Initial Money: UGX {initial_amount:.2f}\n")
-    print(f"--- Enter {budget_name} Expenses ---")
 
-    for i in range(1, 6):
+    num_expenses = get_positive_int("How many expenses do you want to enter? ")
+
+    print(f"\n--- Enter {budget_name} Expenses ---")
+
+    for i in range(1, num_expenses + 1):
         print(f"\nExpense {i} | Current balance: UGX {budget.balance:.2f}")
         expense_name = input("Expense name: ")
         amount = get_positive_number("Expense amount: UGX ")
