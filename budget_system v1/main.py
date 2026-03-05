@@ -83,7 +83,7 @@ def main():
                 continue
 
             # Expense was accepted, confirm and show updated balance
-            print(f"✓ '{expense_name}' added.")
+            print(f" '{expense_name}' added.")
             print(f"Remaining balance: UGX {budget.balance:.2f}")
             break
 
