@@ -18,19 +18,19 @@ class Budget:
         self.expenses = []                    # List that stores all Expense objects added
 
     def add_expense(self, expense: Expense):
-        """
-        Attempts to add an expense to the budget.
-        Rejects the expense entirely if it would exceed the current balance.
-        Returns True if the budget is now exactly zero (exhausted),
-        False if there is still remaining balance.
-        Returns None if the expense was rejected.
-        """
+       
+        # add an expense to the budget.
+        #Rejects the expense entirely if it would exceed the current balance.
+        #Returns True if the budget is now exactly zero (exhausted),
+        #False if there is still remaining balance.
+        #Returns None if the expense was rejected.
+       
         # Block the expense if it exceeds the available balance
         if expense.amount > self.balance:
             print(f"\nExpense rejected. UGX {expense.amount:.2f} exceeds "
                   f"your remaining balance of UGX {self.balance:.2f}.")
             print("Please enter a smaller amount.")
-            return None  # Signals to main.py that the expense was not added
+            return None  # tells main  that the expense was not added
 
         # Add the expense object to the list for later display in the summary
         self.expenses.append(expense)
@@ -41,22 +41,21 @@ class Budget:
         # Signal that the budget is now fully exhausted
         if self.balance == 0:
             print("\nYour budget is now fully used up.")
-            return True  # Tells main.py to stop the loop
+            return True  # Tells main to stop the loop
 
         return False  # Budget still has funds, loop can continue
 
     def display_summary(self):
-        """
-        Prints a formatted table of all expenses at the end of the session.
-        Shows each item and its cost, then totals at the bottom.
-        """
+        
+        #Prints a table of all expenses at the end of the program.
+        
+        #Shows each item and its cost, then totals at the bottom.
+        
         print("\n*****")
         print("   EXPENSE SUMMARY    ")
         print("******")
 
-        # Column headers — left-aligned item name, right-aligned cost
-        print(f"{'Item':<20} {'Cost (UGX)':>10}")
-        print("-" * 32)
+       
 
         # Loop through every expense and print its name and amount
         for e in self.expenses:
